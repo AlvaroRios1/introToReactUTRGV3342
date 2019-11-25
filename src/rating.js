@@ -19,7 +19,7 @@ class Rating extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = { 
-			stars: Array(5).fill(false),
+			stars: Array(10).fill(false),
 			rating: 0, 
 		};
 	}
@@ -27,13 +27,13 @@ class Rating extends React.Component {
 		//try to use const for immutably since its avoids edge cases that come from mutating original state values!
 		var newStars;
 		if (i == this.state.rating && i == 0){
-			newStars = Array(5).fill(false);
+			newStars = Array(10).fill(false);
 			newStars[i] = !this.state.stars[i];
 		}
 		else {
 			newStars = [];
 			var newOn = i;
-			for (var j = 0; j < 5; j++){
+			for (var j = 0; j < 10; j++){
 				if (newOn >= 0){
 					newStars.push(true);
 					newOn--;
@@ -58,7 +58,7 @@ class Rating extends React.Component {
 	  }
 
 	render() {
-		let n = 5;
+		let n = 10;
 		let stars = [];
 		for (var i = 0; i < n; i++){
 			//stars.push(<Star on={flip}/>);

@@ -28,7 +28,7 @@ var Rating = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).call(this, props));
 
 		_this.state = {
-			stars: Array(5).fill(false),
+			stars: Array(10).fill(false),
 			rating: 0
 		};
 		return _this;
@@ -40,12 +40,12 @@ var Rating = function (_React$Component) {
 			//try to use const for immutably since its avoids edge cases that come from mutating original state values!
 			var newStars;
 			if (i == this.state.rating && i == 0) {
-				newStars = Array(5).fill(false);
+				newStars = Array(10).fill(false);
 				newStars[i] = !this.state.stars[i];
 			} else {
 				newStars = [];
 				var newOn = i;
-				for (var j = 0; j < 5; j++) {
+				for (var j = 0; j < 10; j++) {
 					if (newOn >= 0) {
 						newStars.push(true);
 						newOn--;
@@ -73,7 +73,7 @@ var Rating = function (_React$Component) {
 	}, {
 		key: "render",
 		value: function render() {
-			var n = 5;
+			var n = 10;
 			var stars = [];
 			for (var i = 0; i < n; i++) {
 				//stars.push(<Star on={flip}/>);
