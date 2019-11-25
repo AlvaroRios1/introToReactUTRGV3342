@@ -11,66 +11,81 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Star = function (_React$Component) {
-	_inherits(Star, _React$Component);
+function Star(props) {
+	if (props.on) {
+		return React.createElement("img", { src: "star.png", value: props.value, onClick: props.onClick });
+	} else {
+		return React.createElement("img", { src: "star-off.png", onClick: props.onClick });
+	}
+}
 
-	function Star(props) {
-		_classCallCheck(this, Star);
+var Rating = function (_React$Component) {
+	_inherits(Rating, _React$Component);
 
-		var _this = _possibleConstructorReturn(this, (Star.__proto__ || Object.getPrototypeOf(Star)).call(this, props));
+	function Rating(props) {
+		_classCallCheck(this, Rating);
 
-		_this.state = { on: props.on };
+		var _this = _possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).call(this, props));
+
+		_this.state = {
+			stars: Array(5).fill(false),
+			rating: 0
+		};
 		return _this;
 	}
 
-	_createClass(Star, [{
+	_createClass(Rating, [{
 		key: "handleClick",
-		value: function handleClick() {
-			this.setState({ on: !this.state.on });
+		value: function handleClick(i) {
+			//try to use const for immutably since its avoids edge cases that come from mutating original state values!
+			var newStars;
+			if (i == this.state.rating && i == 0) {
+				newStars = Array(5).fill(false);
+				newStars[i] = !this.state.stars[i];
+			} else {
+				newStars = [];
+				var newOn = i;
+				for (var j = 0; j < 5; j++) {
+					if (newOn >= 0) {
+						newStars.push(true);
+						newOn--;
+					}
+				}
+			}
+			this.setState({
+				stars: newStars,
+				rating: i
+			});
+		}
+	}, {
+		key: "renderStar",
+		value: function renderStar(i) {
+			var _this2 = this;
+
+			return React.createElement(Star, {
+				value: i,
+				on: this.state.stars[i],
+				onClick: function onClick() {
+					return _this2.handleClick(i);
+				}
+			});
 		}
 	}, {
 		key: "render",
 		value: function render() {
-			var _this2 = this;
-
-			if (this.state.on) {
-				return React.createElement("img", { src: "star.png", onClick: function onClick() {
-						return _this2.handleClick();
-					} });
-			} else {
-				return React.createElement("img", { src: "star-off.png", onClick: function onClick() {
-						return _this2.handleClick();
-					} });
-			}
-		}
-	}]);
-
-	return Star;
-}(React.Component);
-
-var Rating = function (_React$Component2) {
-	_inherits(Rating, _React$Component2);
-
-	function Rating() {
-		_classCallCheck(this, Rating);
-
-		return _possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).apply(this, arguments));
-	}
-
-	_createClass(Rating, [{
-		key: "render",
-		value: function render() {
-			var n = 3000;
+			var n = 5;
 			var stars = [];
-			var flip = false;
 			for (var i = 0; i < n; i++) {
-				stars.push(React.createElement(Star, { on: flip }));
-				flip = !flip;
+				//stars.push(<Star on={flip}/>);
+				stars.push(this.renderStar(i));
 			}
-			return React.createElement(
-				"div",
-				null,
-				stars
+			return (
+				//<Star on={true} onClick={handleClick()}/>
+				React.createElement(
+					"div",
+					null,
+					stars
+				)
 			);
 		}
 	}]);

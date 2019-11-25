@@ -2,40 +2,70 @@
 
 //SEPERATE THE VIEW WITH THE LOGIC?
 //REACT SAYS **** NO TO THAT WE WANT MODULAR CODE :D
-class Star extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = { on: props.on };
-	}
+function Star(props) {
+    if (props.on) {
+      return (
+        <img src="star.png" value={props.value} onClick={props.onClick}/>
+      );
+    } else {
+      return (
+        <img src="star-off.png" onClick={props.onClick}/>
+      );
+    }
+  }
 
-	handleClick(){
-		this.setState({ on: !this.state.on });
-	}
-
-	render(){
-		if (this.state.on){
-			return (
-				<img src="star.png" onClick={() => this.handleClick()}/>
-			);
-		} else{
-			return (
-				<img src="star-off.png" onClick={() => this.handleClick()}/>
-			);
-		}
-
-	}
-}
 
 class Rating extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = { 
+			stars: Array(5).fill(false),
+			rating: 0, 
+		};
+	}
+	handleClick(i){
+		//try to use const for immutably since its avoids edge cases that come from mutating original state values!
+		var newStars;
+		if (i == this.state.rating && i == 0){
+			newStars = Array(5).fill(false);
+			newStars[i] = !this.state.stars[i];
+		}
+		else {
+			newStars = [];
+			var newOn = i;
+			for (var j = 0; j < 5; j++){
+				if (newOn >= 0){
+					newStars.push(true);
+					newOn--;
+				}
+			}
+		}
+		this.setState({
+			stars: newStars,
+			rating: i,
+		});
+
+	}
+
+	renderStar(i) {
+	    return (
+	      <Star
+	      	value={i}
+	        on={this.state.stars[i]}
+	        onClick={() => this.handleClick(i)}
+	      />
+	    );
+	  }
+
 	render() {
-		let n = 3000;
+		let n = 5;
 		let stars = [];
-		var flip = false;
 		for (var i = 0; i < n; i++){
-			stars.push(<Star on={flip}/>);
-			flip = !flip;
+			//stars.push(<Star on={flip}/>);
+			stars.push(this.renderStar(i));
 		}
 		return (
+			//<Star on={true} onClick={handleClick()}/>
 			<div>
 				{stars}
 			</div>
