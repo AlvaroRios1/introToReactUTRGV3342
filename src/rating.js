@@ -85,15 +85,45 @@ class Professor extends React.Component {
 }
 
 class List extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			profs: 0,
+			profNames: ["Professor0"],
+		};
+	}
+	addProf(){
+		const newProf = this.state.profs + 1;
+		var nameGen = "newProfessor" + newProf.toString();
+		const profExtend = this.state.profNames.concat([nameGen]);
+		this.setState({
+			profs: newProf,
+			profNames: profExtend,
+		});
+	}
+	removeProf(){
+		const newProf = this.state.profs - 1;
+		const profLess = this.state.profNames.slice(0, this.state.profNames.length - 1);
+		if (this.state.profs == 0){
+			return;
+		}
+		this.setState({
+			profs: newProf,
+			profNames: profLess,
+		});
+	}
+
 	render () {
+		var profRender = [];
+		this.state.profNames.forEach((value, index) => {
+			profRender.push(<li><Professor name={value}/></li>);
+		})
 		return(
 			<div>
+				<button onClick={() => this.addProf()}>Add more profs</button>
+				<button onClick={() => this.removeProf()}>Remove profs</button>
 				<ul>
-					<Professor name="Emmett Tomai" />
-					<Professor name="Gustavo Dietrich" />
-					<Professor name="Eric Martinez" />
-					<Professor name="Robert Schweller" />
-					<Professor name="Timothy Wylie" />
+					{profRender}
 				</ul>
 			</div>
 		);

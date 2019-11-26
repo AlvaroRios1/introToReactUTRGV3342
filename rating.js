@@ -128,26 +128,76 @@ var Professor = function (_React$Component2) {
 var List = function (_React$Component3) {
 	_inherits(List, _React$Component3);
 
-	function List() {
+	function List(props) {
 		_classCallCheck(this, List);
 
-		return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+		var _this4 = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+
+		_this4.state = {
+			profs: 0,
+			profNames: ["Professor0"]
+		};
+		return _this4;
 	}
 
 	_createClass(List, [{
+		key: "addProf",
+		value: function addProf() {
+			var newProf = this.state.profs + 1;
+			var nameGen = "newProfessor" + newProf.toString();
+			var profExtend = this.state.profNames.concat([nameGen]);
+			this.setState({
+				profs: newProf,
+				profNames: profExtend
+			});
+		}
+	}, {
+		key: "removeProf",
+		value: function removeProf() {
+			var newProf = this.state.profs - 1;
+			var profLess = this.state.profNames.slice(0, this.state.profNames.length - 1);
+			if (this.state.profs == 0) {
+				return;
+			}
+			this.setState({
+				profs: newProf,
+				profNames: profLess
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
+			var _this5 = this;
+
+			var profRender = [];
+			this.state.profNames.forEach(function (value, index) {
+				profRender.push(React.createElement(
+					"li",
+					null,
+					React.createElement(Professor, { name: value })
+				));
+			});
 			return React.createElement(
 				"div",
 				null,
 				React.createElement(
+					"button",
+					{ onClick: function onClick() {
+							return _this5.addProf();
+						} },
+					"Add more profs"
+				),
+				React.createElement(
+					"button",
+					{ onClick: function onClick() {
+							return _this5.removeProf();
+						} },
+					"Remove profs"
+				),
+				React.createElement(
 					"ul",
 					null,
-					React.createElement(Professor, { name: "Emmett Tomai" }),
-					React.createElement(Professor, { name: "Gustavo Dietrich" }),
-					React.createElement(Professor, { name: "Eric Martinez" }),
-					React.createElement(Professor, { name: "Robert Schweller" }),
-					React.createElement(Professor, { name: "Timothy Wylie" })
+					profRender
 				)
 			);
 		}
