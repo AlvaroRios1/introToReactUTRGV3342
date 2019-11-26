@@ -1,5 +1,4 @@
 'use strict';
-
 //SEPERATE THE VIEW WITH THE LOGIC?
 //REACT SAYS **** NO TO THAT WE WANT MODULAR CODE :D
 
@@ -93,8 +92,72 @@ var Rating = function (_React$Component) {
 	return Rating;
 }(React.Component);
 
+var Professor = function (_React$Component2) {
+	_inherits(Professor, _React$Component2);
+
+	function Professor() {
+		_classCallCheck(this, Professor);
+
+		return _possibleConstructorReturn(this, (Professor.__proto__ || Object.getPrototypeOf(Professor)).apply(this, arguments));
+	}
+
+	_createClass(Professor, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"h3",
+					null,
+					this.props.name
+				),
+				React.createElement(Rating, null),
+				React.createElement(
+					"h1",
+					null,
+					"------------------------------"
+				)
+			);
+		}
+	}]);
+
+	return Professor;
+}(React.Component);
+
+var List = function (_React$Component3) {
+	_inherits(List, _React$Component3);
+
+	function List() {
+		_classCallCheck(this, List);
+
+		return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
+	}
+
+	_createClass(List, [{
+		key: "render",
+		value: function render() {
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(
+					"ul",
+					null,
+					React.createElement(Professor, { name: "Emmett Tomai" }),
+					React.createElement(Professor, { name: "Gustavo Dietrich" }),
+					React.createElement(Professor, { name: "Eric Martinez" }),
+					React.createElement(Professor, { name: "Robert Schweller" }),
+					React.createElement(Professor, { name: "Timothy Wylie" })
+				)
+			);
+		}
+	}]);
+
+	return List;
+}(React.Component);
+
 var container = document.querySelector('#container');
-ReactDOM.render(React.createElement(Rating), container);
+ReactDOM.render(React.createElement(List), container);
 
 //npm init -y
 //npm install babel-cli@6 babel-preset-react-app@3

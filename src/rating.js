@@ -1,5 +1,4 @@
 'use strict';
-
 //SEPERATE THE VIEW WITH THE LOGIC?
 //REACT SAYS **** NO TO THAT WE WANT MODULAR CODE :D
 function Star(props) {
@@ -73,8 +72,36 @@ class Rating extends React.Component {
 	}
 }
 
+class Professor extends React.Component {
+	render () {
+		return(
+			<div>
+				<h3 >{this.props.name}</h3>
+				<Rating />
+				<h1>------------------------------</h1>
+			</div>
+		);
+	}
+}
+
+class List extends React.Component {
+	render () {
+		return(
+			<div>
+				<ul>
+					<Professor name="Emmett Tomai" />
+					<Professor name="Gustavo Dietrich" />
+					<Professor name="Eric Martinez" />
+					<Professor name="Robert Schweller" />
+					<Professor name="Timothy Wylie" />
+				</ul>
+			</div>
+		);
+	}
+}
+
 const container = document.querySelector('#container');
-ReactDOM.render(React.createElement(Rating), container);
+ReactDOM.render(React.createElement(List), container);
 
 //npm init -y
 //npm install babel-cli@6 babel-preset-react-app@3
